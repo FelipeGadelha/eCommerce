@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Sistema Vendas</title>
+<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+</head>
+<body>
+
+	<header th:replace="fragments/header :: header"></header>
+
+	<div class="container mt-4 p-5">
+		<h1>Lista de Usuários</h1>
+		<a th:href="${#mvc.url('UC#formulario').build()}"
+			class="btn btn-sm btn-danger">cadastrar Usuário</a>
+		<div>
+			<table class="table table-hover mt-3">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Valor</th>
+						<th>Editar</th>
+						<th>Excluir</th>
+					</tr>
+				</thead>
+				<tr th:each="usuario : ${usuarios}">
+					<td><a
+						th:href="${(#mvc.url('UC#detalhesUsuario').arg(0, usuario.id)).build()}">
+							<span th:text="${usuario.nome}"></span>
+					</a></td>
+					<td><span th:text="${usuario.email}"></span></td>
+					<td>
+						<div class="btn-group pull-right">
+							<!-- 							<a class="btn btn-sm btn-primary " th:href="${(#mvc.url('CCC#comprarProduto').arg(0, produto.id)).build()}">Comprar</a>  -->
+							<a class="edit btn btn-sm btn-primary"
+								th:href="@{/usuario/editar/{id}(id=${usuario.id})}">Editar</a>
+						</div>
+					</td>
+					<td>
+						<div class="btn-group pull-right">
+							<a class="delete btn btn-sm btn-danger"
+								th:href="${(#mvc.url('UC#deletarUsuario').arg(0, usuario.id)).build()}">Excluir</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Sistema Vendas</title>
+<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+</head>
+<body>
+
+	<header th:replace="fragments/header :: header"></header>
+
+	<div class="container mt-4 p-5">
+		<h1>Lista de Produtos</h1>
+		<a th:href="${#mvc.url('PC#formulario').build()}"
+			class="btn btn-sm btn-danger mt-2" sec:authorize="hasRole('ROLE_ADMIN')">cadastrar Produto</a>
+		<div>
+			<div>
+				<div class="row">
+					<div class="col-sm-3 text-center" th:each="produto : ${produtos}">
+						<article class="border border-primary  mt-4">
+							<a
+								th:href="${(#mvc.url('PC#detalhesProduto').arg(0, produto.id)).build()}">
+								<img class="rounded-circle mt-4"
+								src="/img/produto-sem-imagem.gif" width="200" height="200">
+							</a>
+							<div class="container">
+								<h5>
+									<span th:text="${produto.nome}"></span>
+								</h5>
+								<p>
+									R$<span th:text="${produto.valor}"></span>
+								</p>
+								<a th:href="${#mvc.url('CC#add').arg(0, produto.id).build()}"
+									class="btn btn-sm btn-primary mb-2 pr-5 pl-5">Comprar</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

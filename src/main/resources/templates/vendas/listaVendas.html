@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Sistema Vendas</title>
+<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+	<header th:replace="fragments/header :: header"></header>
+
+	<div class="container mt-4 p-5">
+		<h1>Lista de Vendas</h1>
+<!-- 		<a th:href="${#mvc.url('UC#formulario').build()}" class="btn btn-sm btn-danger">cadastrar Usuário</a> -->
+		<div>
+			<table class="table table-hover mt-3">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Usuario</th>
+						<th>Valor Total</th>
+						<th>Data</th>
+						<th>Detalhes</th>
+						<th>Excluir</th>
+					</tr>
+				</thead>
+				<tr th:each="venda : ${vendas}">
+					<td>
+<!-- 					<a th:href="${(#mvc.url('VC#detalhesVendas').arg(0, venda.id)).build()}" -->
+							<span
+							th:text="${venda.id}"></span></td>
+					<td><span th:text="${venda.usuario.nome}"></span></td>
+					<td><span th:text="${venda.total}"></span></td>
+					<td><span th:text="${#temporals.format(venda.dataVenda, 'dd-MM-yyyy | HH:mm')}"></span></td>
+					<td>
+						<div class="btn-group pull-right">
+							<a class="delete btn btn-sm btn-primary" th:href="${(#mvc.url('VC#detalhesVendas').arg(0, venda.id)).build()}">Detalhes</a>
+						</div>
+					</td>
+					<td>
+						<div class="btn-group pull-right">
+							<a class="delete btn btn-sm btn-danger" th:href="${(#mvc.url('VC#deletarVenda').arg(0, venda.id)).build()}">Excluir</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
